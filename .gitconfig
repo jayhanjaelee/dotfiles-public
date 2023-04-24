@@ -2,7 +2,7 @@
 	name = Hanjae Lee
 	email = jayhanjaelee@gmail.com
 [core]
-	editor = vi
+	editor = nvim
 	excludesfile = /Users/jay/.gitignore_global
 [init]
 	defaultbranch = main
