@@ -1,0 +1,12 @@
+[user]
+	name = Hanjae Lee
+	email = jayhanjaelee@gmail.com
+[core]
+	editor = vi
+	excludesfile = /Users/jay/.gitignore_global
+[init]
+	defaultbranch = main
+[color]
+	ui = auto
+[pull]
+	rebase = false
