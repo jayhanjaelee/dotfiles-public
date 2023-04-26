@@ -8,27 +8,13 @@ bufferline.setup({
     always_show_bufferline = false,
     show_buffer_close_icons = false,
     show_close_icon = false,
-    color_icons = true
+    color_icons = true,
   },
   highlights = {
-    separator = {
-      fg = '#282c34', -- Change to One Dark color: fg = '#282c34',
-      bg = '#1c1f24', -- Change to One Dark color: bg = '#1c1f24',
-    },
-    separator_selected = {
-      fg = '#282c34', -- Change to One Dark color: fg = '#282c34',
-    },
     background = {
-      fg = '#abb2bf', -- Change to One Dark color: fg = '#abb2bf',
-      bg = '#1c1f24'  -- Change to One Dark color: bg = '#1c1f24'
+      bg = '#24283b',
     },
-    buffer_selected = {
-      fg = '#e06c75', -- Change to One Dark color: fg = '#e06c75',
-      bold = true,
-    },
-    fill = {
-      bg = '#282c34' -- Change to One Dark color: bg = '#282c34'
-    }
+    buffer_selected = { italic = false, bold = false },
   },
 })
 

@@ -8,7 +8,8 @@ vim.cmd [[packadd packer.nvim]]
 
 packer.startup(function(use)
   use 'wbthomason/packer.nvim'
-  use 'navarasu/onedark.nvim'
+  use 'folke/tokyonight.nvim'
+  use 'petertriho/nvim-scrollbar'   -- Scrollbar
   use 'Asheq/close-buffers.vim'     -- Managing buffers
   use 'nvim-tree/nvim-web-devicons' -- File icons
   use 'glepnir/lspsaga.nvim'        -- LSP UIs
@@ -34,7 +35,7 @@ packer.startup(function(use)
   use 'nvim-lua/plenary.nvim' -- Common utilities
   use 'nvim-telescope/telescope.nvim'
   use 'nvim-telescope/telescope-file-browser.nvim'
-  use 'akinsho/nvim-bufferline.lua'
+  use 'akinsho/nvim-bufferline.lua' -- Tab UI
   use 'norcalli/nvim-colorizer.lua'
   use 'lewis6991/gitsigns.nvim'
   use 'dinhhuy258/git.nvim' -- For git blame & browse
@@ -42,6 +43,16 @@ packer.startup(function(use)
     'iamcco/markdown-preview.nvim',
     run = vim.fn['mkdp#util#install'](),
   }
+  use 'MunifTanjim/nui.nvim'
+  use {
+    'nvim-neo-tree/neo-tree.nvim', -- File Explorer
+    branch = 'v2.x',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+      'MunifTanjim/nui.nvim',
+    }
+  }
+  use 'christoomey/vim-tmux-navigator'
+  use 'folke/which-key.nvim'
 end)
-
-require('onedark').load()
