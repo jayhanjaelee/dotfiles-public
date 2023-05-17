@@ -8,7 +8,10 @@ vim.cmd [[packadd packer.nvim]]
 
 packer.startup(function(use)
   use 'wbthomason/packer.nvim'
-  use 'folke/tokyonight.nvim'
+  use {
+    'svrana/neosolarized.nvim',
+    requires = { 'tjdevries/colorbuddy.nvim' }
+  }
   use 'petertriho/nvim-scrollbar'   -- Scrollbar
   use 'Asheq/close-buffers.vim'     -- Managing buffers
   use 'nvim-tree/nvim-web-devicons' -- File icons
@@ -42,16 +45,6 @@ packer.startup(function(use)
   use {
     'iamcco/markdown-preview.nvim',
     run = vim.fn['mkdp#util#install'](),
-  }
-  use 'MunifTanjim/nui.nvim'
-  use {
-    'nvim-neo-tree/neo-tree.nvim', -- File Explorer
-    branch = 'v2.x',
-    requires = {
-      'nvim-lua/plenary.nvim',
-      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
-      'MunifTanjim/nui.nvim',
-    }
   }
   use 'christoomey/vim-tmux-navigator'
   use 'folke/which-key.nvim'
