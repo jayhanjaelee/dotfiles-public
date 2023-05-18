@@ -1,10 +1,10 @@
 export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH="/opt/homebrew/opt/mysql@5.7/bin:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 plugins=(
   git
   fzf
+  z
   )
 source $ZSH/oh-my-zsh.sh
 
@@ -33,3 +33,9 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 function gi() { curl -sLw "\n" https://www.toptal.com/developers/gitignore/api/$@ ;}
+
+zstyle ':completion:*' menu select
+
+# jenv
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
