@@ -1,0 +1,4 @@
+set noerrorbells
+set surround
+set visualbell
+set ignorecase
