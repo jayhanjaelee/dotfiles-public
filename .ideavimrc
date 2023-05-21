@@ -1,2 +1,28 @@
+" change leader key
+let mapleader=" "
+
+" basic
 set noerrorbells
 set surround
+set visualbell
+set ignorecase
+
+" keybindings
+nnorenmap ss :split<Return><C-w>w
+nnorenmap sv :vsplit<Return><C-w>w
+
+" move window
+nnoremap sh <C-w>h
+nnoremap sj <C-w>j
+nnoremap sk <C-w>k
+nnoremap sl <C-w>l
+
+" edit source code
+nnoremap zc :action CollapseRegion<CR>
+nnoremap zo :action ExpandRegion<CR>
+nnoremap <Leader>zc :action CollapseAllRegions<CR>
+nnoremap <Leader>zo :action ExpandAllRegions<CR>
+nnoremap <Leader>=  :action ReformatCode<CR>
+nnoremap <Leader>o :action OptimizeImports<CR>
+nnoremap ge :action GotoNextError<CR>
+nnoremap gE :action GotoPreviousError<CR>
