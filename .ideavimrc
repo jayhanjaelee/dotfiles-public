@@ -8,10 +8,15 @@ set visualbell
 set ignorecase
 
 " keybindings
-nnorenmap ss :split<Return><C-w>w
-nnorenmap sv :vsplit<Return><C-w>w
+nnoremap ss :split<Return><C-w>w
+nnoremap sv :vsplit<Return><C-w>w
+
+" merge other windows
+nnoremap sm <C-w>o
+nnoremap sc <C-w>c
 
 " move window
+nnoremap so <C-w>w
 nnoremap sh <C-w>h
 nnoremap sj <C-w>j
 nnoremap sk <C-w>k
