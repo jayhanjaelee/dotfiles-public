@@ -2,6 +2,10 @@ vim.g.mapleader = " "
 
 local keymap = vim.keymap
 
+-- new line without insert mode.
+keymap.set('n', '<Leader>o', 'o<Esc>0"_D')
+keymap.set('n', '<Leader>O', 'O<Esc>0"_D')
+
 -- Do not yank with x
 keymap.set('n', 'x', '"_x')
 

@@ -1,11 +1,16 @@
 " change leader key
 let mapleader=" "
+" map <C-c> <Esc>
 
 " basic
 set noerrorbells
 set surround
 set visualbell
 set ignorecase
+
+" new line without insert mode
+nnoremap <Leader>o o<Esc>0"_D
+nnoremap <Leader>O O<Esc>0"_D
 
 " keybindings
 nnoremap ss :split<Return><C-w>w
@@ -28,6 +33,6 @@ nnoremap zo :action ExpandRegion<CR>
 nnoremap <Leader>zc :action CollapseAllRegions<CR>
 nnoremap <Leader>zo :action ExpandAllRegions<CR>
 nnoremap <Leader>=  :action ReformatCode<CR>
-nnoremap <Leader>o :action OptimizeImports<CR>
+nnoremap <Leader>i :action OptimizeImports<CR>
 nnoremap ge :action GotoNextError<CR>
 nnoremap gE :action GotoPreviousError<CR>
