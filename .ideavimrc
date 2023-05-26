@@ -7,6 +7,8 @@ set noerrorbells
 set surround
 set visualbell
 set ignorecase
+set incsearch
+" set hlsearch
 
 " new line without insert mode
 nnoremap <Leader>o o<Esc>0"_D
@@ -15,6 +17,9 @@ nnoremap <Leader>O O<Esc>0"_D
 " keybindings
 nnoremap ss :split<Return><C-w>w
 nnoremap sv :vsplit<Return><C-w>w
+nnoremap <Leader>/ :noh<Return>
+nnoremap + <C-a>
+nnoremap - <C-x>
 
 " merge other windows
 nnoremap sm <C-w>o
@@ -36,3 +41,6 @@ nnoremap <Leader>=  :action ReformatCode<CR>
 nnoremap <Leader>i :action OptimizeImports<CR>
 nnoremap ge :action GotoNextError<CR>
 nnoremap gE :action GotoPreviousError<CR>
+
+" Plugins
+Plug 'tpope/vim-surround'
