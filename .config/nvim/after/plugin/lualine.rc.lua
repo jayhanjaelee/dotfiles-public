@@ -18,6 +18,7 @@ lualine.setup {
       path = 0            -- 0 = just filename, 1 = relative path, 2 = absolute path
     } },
     lualine_x = {
+      "vim.fn['zoom#statusline']()",
       {
         'diagnostics',
         sources = { "nvim_diagnostic" },

@@ -25,7 +25,7 @@ keymap.set('n', 'ss', ':split<Return><C-w>w', { silent = true })
 keymap.set('n', 'sv', ':vsplit<Return><C-w>w', { silent = true })
 -- Move window
 keymap.set('n', 'so', '<C-w>w')
-keymap.set('n', 'sm', '<C-w>m')
+keymap.set('n', 'sm', '<C-w>o')
 keymap.set('n', 'sc', '<C-w>c')
 keymap.set('', 'sh', '<C-w>h')
 keymap.set('', 'sj', '<C-w>j')
@@ -40,3 +40,7 @@ keymap.set('n', '<C-w><down>', '<C-w>-')
 
 -- Clear highlighting on escape in normal mode
 keymap.set('n', '<Leader>/', ':noh<cr>', { silent = true })
+
+-- Zoom
+-- keymap.set('n', 'zz', '<C-w>_<C-w>|')
+-- keymap.set('n', 'Zo', '<C-w>=')

@@ -51,7 +51,7 @@ vim.keymap.set('n', ';f',
       no_ignore = false,
       hidden = true,
       initial_mode = "normal",
-      previewer = true
+      previewer = true,
     })
   end)
 vim.keymap.set('n', ';r', function()
