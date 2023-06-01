@@ -23,7 +23,11 @@ ts.setup {
     'c_sharp',
     'java',
     'javascript',
-    'python'
+    'python',
+    'html',
+    'swift',
+    'yaml',
+    'toml',
   },
   autotag = {
     enable = true,
