@@ -50,4 +50,5 @@ packer.startup(function(use)
   use 'folke/which-key.nvim'
   use 'tpope/vim-surround'
   use 'dhruvasagar/vim-zoom'
+  use 'mg979/vim-visual-multi'
 end)

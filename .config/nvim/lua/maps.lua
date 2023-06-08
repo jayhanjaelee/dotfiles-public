@@ -41,6 +41,13 @@ keymap.set('n', '<C-w><down>', '<C-w>-')
 -- Clear highlighting on escape in normal mode
 keymap.set('n', '<Leader>/', ':noh<cr>', { silent = true })
 
+-- multiple curosr
+vim.g.VM_maps = {
+  ['Find Under']      = '<C-n>',
+  ["Add Cursor Down"] = '<A-j>',
+  ["Add Cursor Up"]   = '<A-k>',
+}
+
 -- Zoom
 -- keymap.set('n', 'zz', '<C-w>_<C-w>|')
 -- keymap.set('n', 'Zo', '<C-w>=')
