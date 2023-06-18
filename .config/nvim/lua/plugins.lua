@@ -17,6 +17,7 @@ packer.startup(function(use)
   use 'nvim-tree/nvim-web-devicons' -- File icons
   use 'glepnir/lspsaga.nvim'        -- LSP UIs
   use 'L3MON4D3/LuaSnip'            -- Snippet
+  use 'RRethy/nvim-base16'          -- theme
   use 'nvim-lualine/lualine.nvim'   -- Statusline
   use 'onsails/lspkind.nvim'        -- vscode-like pictograms
   use 'hrsh7th/cmp-buffer'          -- nvim-cmp source for buffer words

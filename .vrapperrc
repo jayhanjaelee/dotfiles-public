@@ -1,0 +1,28 @@
+let mapleader=" "
+
+" basic
+set noerrorbells
+set surround
+set visualbell
+set ignorecase
+set incsearch
+
+" new line without insert mode
+nnoremap <Leader>o o<Esc>0"_D
+nnoremap <Leader>O O<Esc>0"_D
+
+" keybindings
+nnoremap ss :split<Return>
+nnoremap sv :vsplit<Return>
+nnoremap <Leader>/ :noh<Return>
+
+" merge other windows
+nnoremap sm <C-w>o
+nnoremap sc :q<Return>
+
+" move window
+nnoremap so <C-w>w
+nnoremap sh <C-w>h
+nnoremap sj <C-w>j
+nnoremap sk <C-w>k
+nnoremap sl <C-w>l

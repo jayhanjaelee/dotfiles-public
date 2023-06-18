@@ -32,6 +32,9 @@ export TERM=xterm-256color
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# my secret key for naweki
+# SECRET_KEY = gUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w
+
 function gi() { curl -sLw "\n" https://www.toptal.com/developers/gitignore/api/$@ ;}
 
 zstyle ':completion:*' menu select
@@ -39,3 +42,13 @@ zstyle ':completion:*' menu select
 # jenv
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
+
+# ls
+alias ll="ls -ltr"
+# reset
+alias reset="clear && printf '\e[3J'"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
