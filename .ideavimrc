@@ -18,8 +18,6 @@ nnoremap <Leader>O O<Esc>0"_D
 nnoremap ss :split<Return><C-w>w
 nnoremap sv :vsplit<Return><C-w>w
 nnoremap <Leader>/ :noh<Return>
-nnoremap + <C-a>
-nnoremap - <C-x>
 
 " merge other windows
 nnoremap sm <C-w>o

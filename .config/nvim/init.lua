@@ -1,18 +1,16 @@
-require('base')
-require('highlights')
-require('maps')
-require('plugins')
-
-local has = function(x)
-	return vim.fn.has(x) == 1
-end
-
-local is_mac = has "macunix"
-local is_win = has "win32"
-
-if is_mac then
-	require('macos')
-end
-if is_win then
-	require('windows')
-end
+require "jay.options"
+require "jay.keymaps"
+require "jay.plugins"
+require "jay.colorscheme"
+require "jay.cmp"
+require "jay.lsp"
+require "jay.telescope"
+require "jay.treesitter"
+require "jay.autopairs"
+require "jay.comments"
+require "jay.gitsigns"
+require "jay.nvim-tree"
+-- require "jay.bufferline"
+require "jay.lualine"
+require "jay.project"
+require "jay.dashboard"
