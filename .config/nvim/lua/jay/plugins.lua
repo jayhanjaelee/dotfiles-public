@@ -112,6 +112,9 @@ return packer.startup(function(use)
   -- Vim surround
   use "tpope/vim-surround"
 
+  -- vim tmux navigator
+  use "christoomey/vim-tmux-navigator"
+
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()
 	end
