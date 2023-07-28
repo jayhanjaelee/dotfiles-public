@@ -3,6 +3,7 @@ let mapleader=" "
 " map <C-c> <Esc>
 
 " basic
+set clipboard+=unnamedplus
 set noerrorbells
 set surround
 set visualbell

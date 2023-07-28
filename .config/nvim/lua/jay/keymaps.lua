@@ -172,5 +172,5 @@ keymap("n", "]E", function()
 end)
 
 -- Toggle outline
-keymap("n","<leader>o", "<cmd>Lspsaga outline<CR>", opts)
+-- keymap("n","<leader>o", "<cmd>Lspsaga outline<CR>", opts)
 keymap("n", "K", "<cmd>Lspsaga hover_doc", opts)

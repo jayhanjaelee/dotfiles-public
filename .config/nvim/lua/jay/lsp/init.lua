@@ -4,6 +4,6 @@ if not status_ok then
 end
 
 require "jay.lsp.mason"
-require("jay.lsp.handlers").setup()
+require "jay.lsp.handlers".setup()
 require "jay.lsp.null-ls"
 require "jay.lsp.lspsaga"

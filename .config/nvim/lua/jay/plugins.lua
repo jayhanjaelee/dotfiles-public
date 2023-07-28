@@ -80,12 +80,14 @@ return packer.startup(function(use)
   use { 'nvim-telescope/telescope.nvim', requires = { {'nvim-lua/plenary.nvim'} } }
 
  	-- Treesitter
-  use { 
+  use {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
   }
   use "p00f/nvim-ts-rainbow"
   use "JoosepAlviste/nvim-ts-context-commentstring"
+  use "windwp/nvim-ts-autotag"
+  use "nvim-treesitter/playground"
 
   -- Autopairs
   use "windwp/nvim-autopairs"
@@ -106,14 +108,24 @@ return packer.startup(function(use)
   -- Project management
   use "ahmedkhalf/project.nvim"
 
-  -- dashboard
-  use "glepnir/dashboard-nvim"
-
   -- Vim surround
   use "tpope/vim-surround"
 
   -- vim tmux navigator
   use "christoomey/vim-tmux-navigator"
+
+  -- indent rainbow
+  use {
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+      opts = {}
+      -- Other blankline configuration here
+      require("indent_blankline").setup(require("indent-rainbowline").make_opts(opts))
+    end,
+    requires = {
+      "TheGLander/indent-rainbowline.nvim",
+    },
+  }
 
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()
