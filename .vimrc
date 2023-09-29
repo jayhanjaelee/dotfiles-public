@@ -194,3 +194,8 @@ nmap ta :tabonly<Return>
 " Switch tab
 nmap <S-Tab> :tabprev<Return>
 nmap <Tab> :tabnext<Return>
+
+"-----------------------------------------------------------------------"
+" buffer
+"------------------------------------------------------------------------"
+nmap <Leader>w :%bd\|e#<Return>
