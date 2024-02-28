@@ -1,4 +1,15 @@
 "-----------------------------------------------------------------------"
+" vim-plugin
+"------------------------------------------------------------------------"
+
+call plug#begin('~/.vim/plugged')
+   Plug 'itchyny/lightline.vim'
+   Plug 'joshdick/onedark.vim'
+   Plug 'christoomey/vim-tmux-navigator'
+   Plug 'chriskempson/base16-vim'
+call plug#end()
+
+"-----------------------------------------------------------------------"
 " Theme
 "------------------------------------------------------------------------"
 
@@ -10,22 +21,13 @@ if has('termguicolors')
   set termguicolors
 endif
 
-colorscheme onedark
-
 set laststatus=2 " turn on bottom bar
 if !has('gui_running')
   set t_Co=256
 endif
 set noshowmode
 
-"-----------------------------------------------------------------------"
-" vim-plugin configuration
-"------------------------------------------------------------------------"
-
-call plug#begin('~/.vim/plugged')
-   Plug 'itchyny/lightline.vim'
-   Plug 'christoomey/vim-tmux-navigator'
-call plug#end()
+colorscheme base16-tomorrow-night
 
 "-----------------------------------------------------------------------"
 "vim configuration
@@ -152,7 +154,7 @@ filetype plugin indent on
 "------------------------------------------------------------------------"
 
 let g:lightline = {
-      \ 'colorscheme': 'onedark',
+      \ 'colorscheme': 'Tomorrow_Night',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'readonly', 'filename', 'modified' ] ]
@@ -199,3 +201,7 @@ nmap <Tab> :tabnext<Return>
 " buffer
 "------------------------------------------------------------------------"
 nmap <Leader>w :%bd\|e#<Return>
+map <leader>n :bnext<cr>
+map <leader>p :bprevious<cr>
+map <leader>d :bdelete<cr>
+map <leader>l :buffers<cr>
