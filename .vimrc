@@ -27,7 +27,7 @@ if !has('gui_running')
 endif
 set noshowmode
 
-colorscheme base16-tomorrow-night
+colorscheme onedark
 
 "-----------------------------------------------------------------------"
 "vim configuration
@@ -154,7 +154,7 @@ filetype plugin indent on
 "------------------------------------------------------------------------"
 
 let g:lightline = {
-      \ 'colorscheme': 'Tomorrow_Night',
+      \ 'colorscheme': 'onedark',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'readonly', 'filename', 'modified' ] ]
