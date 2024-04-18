@@ -7,6 +7,7 @@ call plug#begin('~/.vim/plugged')
    Plug 'joshdick/onedark.vim'
    Plug 'christoomey/vim-tmux-navigator'
    Plug 'chriskempson/base16-vim'
+   Plug 'puremourning/vimspector'
 call plug#end()
 
 "-----------------------------------------------------------------------"
@@ -101,7 +102,9 @@ set showmatch
 set mouse=a
 
 "클립보드 복사
-set clipboard=unnamed "use OS clipboard
+" set clipboard=unnamed "use OS clipboard
+set clipboard+=unnamed  " use the clipboards of vim and win
+set paste
 
 " 키워드 입력시 점진적 검색
 set incsearch
@@ -205,3 +208,5 @@ map <leader>n :bnext<cr>
 map <leader>p :bprevious<cr>
 map <leader>d :bdelete<cr>
 map <leader>l :buffers<cr>
+
+nnoremap <Leader>v <c-v>
