@@ -6,8 +6,6 @@ call plug#begin('~/.vim/plugged')
    Plug 'itchyny/lightline.vim'
    Plug 'joshdick/onedark.vim'
    Plug 'christoomey/vim-tmux-navigator'
-   Plug 'chriskempson/base16-vim'
-   Plug 'puremourning/vimspector'
 call plug#end()
 
 "-----------------------------------------------------------------------"
