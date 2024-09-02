@@ -4,8 +4,8 @@
 
 call plug#begin('~/.vim/plugged')
    Plug 'itchyny/lightline.vim'
-   Plug 'joshdick/onedark.vim'
    Plug 'christoomey/vim-tmux-navigator'
+   Plug 'NLKNguyen/papercolor-theme'
 call plug#end()
 
 "-----------------------------------------------------------------------"
@@ -16,17 +16,13 @@ if has("syntax")
  syntax on
 endif
 
-if has('termguicolors')
-  set termguicolors
-endif
+set t_Co=256   " This is may or may not needed.
 
+set background=dark
+colorscheme PaperColor
+
+set relativenumber
 set laststatus=2 " turn on bottom bar
-if !has('gui_running')
-  set t_Co=256
-endif
-set noshowmode
-
-colorscheme onedark
 
 "-----------------------------------------------------------------------"
 "vim configuration
@@ -102,7 +98,8 @@ set mouse=a
 "클립보드 복사
 " set clipboard=unnamed "use OS clipboard
 set clipboard+=unnamed  " use the clipboards of vim and win
-set paste
+" set paste
+set nopaste
 
 " 키워드 입력시 점진적 검색
 set incsearch
@@ -155,7 +152,7 @@ filetype plugin indent on
 "------------------------------------------------------------------------"
 
 let g:lightline = {
-      \ 'colorscheme': 'onedark',
+      \ 'colorscheme': 'PaperColor',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'readonly', 'filename', 'modified' ] ]
