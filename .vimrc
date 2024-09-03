@@ -5,7 +5,6 @@
 call plug#begin('~/.vim/plugged')
    Plug 'itchyny/lightline.vim'
    Plug 'christoomey/vim-tmux-navigator'
-   Plug 'NLKNguyen/papercolor-theme'
 call plug#end()
 
 "-----------------------------------------------------------------------"
@@ -19,7 +18,7 @@ endif
 set t_Co=256   " This is may or may not needed.
 
 set background=dark
-colorscheme PaperColor
+colorscheme Tomorrow-Night-Eighties
 
 set relativenumber
 set laststatus=2 " turn on bottom bar
@@ -152,7 +151,7 @@ filetype plugin indent on
 "------------------------------------------------------------------------"
 
 let g:lightline = {
-      \ 'colorscheme': 'PaperColor',
+      \ 'colorscheme': 'Tomorrow_Night_Eighties',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'readonly', 'filename', 'modified' ] ]
