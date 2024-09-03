@@ -5,6 +5,7 @@
 call plug#begin('~/.vim/plugged')
    Plug 'itchyny/lightline.vim'
    Plug 'christoomey/vim-tmux-navigator'
+   Plug 'tpope/vim-surround'
 call plug#end()
 
 "-----------------------------------------------------------------------"
