@@ -3,11 +3,14 @@
 "------------------------------------------------------------------------"
 
 call plug#begin('~/.vim/plugged')
-   Plug 'itchyny/lightline.vim'
-   Plug 'christoomey/vim-tmux-navigator' 
-   Plug 'tpope/vim-surround'
-   Plug 'sainnhe/everforest'
-   Plug 'joshdick/onedark.vim'
+  Plug 'itchyny/lightline.vim'
+  Plug 'christoomey/vim-tmux-navigator' 
+  Plug 'tpope/vim-surround'
+  Plug 'sainnhe/everforest'
+  Plug 'joshdick/onedark.vim'
+  Plug 'preservim/nerdtree'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
 call plug#end()
 
 "-----------------------------------------------------------------------"
@@ -67,6 +70,9 @@ set nocompatible "Vim Using
 set encoding=utf-8
 set fencs=utf-8,euc-kr
 set termencoding=utf-8 " terminal encoding
+
+" disable tabbar
+set showtabline=0
 
 " 백스페이스 사용
 set bs=indent,eol,start
@@ -188,6 +194,11 @@ let g:mapleader = " "
 nmap <Leader>o o<Esc>0"_D
 nmap <Leader>O O<Esc>0"_D
 nmap <Leader>/ :noh<Return>
+nmap <Leader>r :source %<Return>
+nmap <Leader>e :NERDTree<Return>
+nmap <Leader>i :PlugInstall<Return>
+nnoremap <C-p> :Files<Return>
+nnoremap <Leader>b :Buffers<Return>
 
 "-----------------------------------------------------------------------"
 " windows
@@ -207,21 +218,24 @@ map sl <C-w>l
 " tab
 "------------------------------------------------------------------------"
 
-nmap te :tabedit<Return>
-nmap tw :tabclose<Return>
-nmap ta :tabonly<Return>
+" nmap te :tabedit<Return>
+" nmap tw :tabclose<Return>
+" nmap ta :tabonly<Return>
 
 " Switch tab
-nmap <S-Tab> :tabprev<Return>
-nmap <Tab> :tabnext<Return>
+" nmap <S-Tab> :tabprev<Return>
+" nmap <Tab> :tabnext<Return>
 
 "-----------------------------------------------------------------------"
 " buffer
 "------------------------------------------------------------------------"
 nmap <Leader>w :%bd\|e#<Return>
-map <leader>n :bnext<cr>
-map <leader>p :bprevious<cr>
-map <leader>d :bdelete<cr>
-map <leader>l :buffers<cr>
+map <Leader>n :bnext<cr>
+map <Leader>p :bprevious<cr>
+map <Leader>d :bdelete<cr>
+" map <Leader>l :buffers<cr>
 
 nnoremap <Leader>v <c-v>
+
+" fzf
+let g:fzf_layout = { 'down': '40%' }
