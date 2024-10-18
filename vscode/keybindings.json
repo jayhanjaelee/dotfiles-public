@@ -1,0 +1,119 @@
+// Place your key bindings in this file to override the defaults
+[
+   {
+        "key": "ctrl+h",
+        "command": "workbench.action.navigateLeft"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "workbench.action.navigateRight"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "workbench.action.navigateUp"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "workbench.action.navigateDown"
+    },
+    {
+        "key": "ctrl+shift+F4",
+        "command": "workbench.action.closeOtherEditors",
+    },
+    { 
+        "key": "ctrl+n", // "cmd+n" on mac
+        "command": "extension.advancedNewFile",
+    },
+    {
+        "key": "ctrl+win+oem_4",
+        "command": "workbench.action.previousEditor",
+    },
+    {
+        "key": "ctrl+win+oem_6",
+        "command": "workbench.action.nextEditor",
+    },
+    /* terminal start */
+    {
+        "key": "ctrl+t",
+        "command": "workbench.action.terminal.new",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+f4",
+        "command": "workbench.action.terminal.kill",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+enter",
+        "command": "workbench.action.toggleMaximizedPanel",
+        "when": "terminalFocus || inDebugRepl"
+    },
+    /* termianl end */
+    {
+        "key": "ctrl+k ctrl+o",
+        "command": "-workbench.action.files.openFolder",
+        "when": "openFolderWorkspaceSupport"
+    },
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.nextEditorInGroup"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.previousEditorInGroup"
+    },
+    // outline
+    {
+        "key": "ctrl+alt+o",
+        "command": "workbench.action.focusLastEditorGroup",   // Ctrl+LeftArrow also does this
+                                        // Space will open the current tree item
+                                        // left/right arrows will open/close item
+        "when": "outline.active"
+    },
+    {
+        "key": "ctrl+alt+o",
+        "command": "outline.focus",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+o",
+        "command": "workbench.action.navigateBack"
+    },
+    {
+        "key": "ctrl+f",
+        "command": "list.find",
+        "when": "listFocus && listSupportsFind"
+    },
+    {
+        "key": "ctrl+shift+a",
+        "command": "workbench.debug.viewlet.action.addWatchExpression"
+    },
+    {
+        "key": "ctrl+shift+s",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "ctrl+m",
+        "command": "workbench.action.togglePanel"
+    },
+    {
+        "key": "ctrl+w v",
+        "command":"workbench.action.terminal.splitInActiveWorkspace",
+        "when":"terminalFocus"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "workbench.action.terminal.focusPreviousPane",
+        "when":"terminalFocus"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "workbench.action.terminal.focusNextPane",
+        "when":"terminalFocus"
+    },
+    {
+        "key": "space c",
+        "command": "workbench.debug.viewlet.action.removeAllBreakpoints",
+        "when": "vim.mode == 'Normal'"
+    }
+]
