@@ -9,13 +9,6 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='nvim'
-# fi
-#
 export PATH="/usr/local/Cellar/php/8.3.11/bin/php:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 
@@ -29,3 +22,9 @@ source /opt/homebrew/Cellar/fzf/0.55.0/shell/completion.zsh
 
 # lazygit
 alias lg="lazygit"
+alias lc="nvim leetcode.nvim"
+
+alias des="cd ~/Desktop"
+alias down="cd ~/Downloads"
+alias doc="cd ~/Documents/"
+alias conf="cd ~/.config"
