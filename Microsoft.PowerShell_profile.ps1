@@ -14,7 +14,7 @@ $out = ""
 Set-Alias vim nvim
 Set-Alias vi nvim
 Set-Alias v nvim
-Set-Alias tail tail-tail
+Set-Alias tail tail-file
 
 # cd
 Set-Alias wamp cd_wamp
@@ -22,6 +22,13 @@ Set-Alias des cd_desktop
 Set-Alias doc cd_doc
 Set-Alias down cd_down
 Set-Alias univ cd_univ
+
+# ls
+Set-Alias ll ls_ltr
+
+function ls_ltr {
+  Get-childItem | Sort-Object LastAccessTime
+}
 
 function cd_wamp {
     Set-Location "C:\wamp64"
