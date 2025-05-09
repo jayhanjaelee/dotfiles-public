@@ -1,3 +1,12 @@
+
+
+$env:LC_ALL='C.UTF-8'
+$OutputEncoding = [System.Text.Encoding]::UTF8
+
+[System.Environment]::SetEnvironmentVariable('ssh','C:\Users\Wonsh\.ssh\config')
+[System.Environment]::SetEnvironmentVariable('hosts','C:\Users\Wonsh\Desktop\hosts')
+[System.Environment]::SetEnvironmentVariable('vhosts','C:\Users\Wonsh\Desktop\httpd-vhosts.conf')
+
 function prompt {
   $loc = $executionContext.SessionState.Path.CurrentLocation;
 
@@ -26,8 +35,14 @@ Set-Alias univ cd_univ
 # ls
 Set-Alias ll ls_ltr
 
+Set-Alias nvim_conf cd_nvim_conf
+
 function ls_ltr {
   Get-childItem | Sort-Object LastAccessTime
+}
+
+function cd_nvim_conf {
+    Set-Location "C:\Users\wonsh\AppData\Local\nvim"
 }
 
 function cd_wamp {
@@ -56,4 +71,13 @@ function tail-file {
     )
     
     Get-Content -Path $filename -Wait -Tail 0
+}
+
+function Update-TabTitle {
+    $host.UI.RawUI.WindowTitle = "$(Get-Location)"
+}
+
+function prompt {
+    Update-TabTitle
+    return "PS $(Get-Location)> "
 }
