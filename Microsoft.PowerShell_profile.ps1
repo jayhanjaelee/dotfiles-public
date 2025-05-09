@@ -74,7 +74,19 @@ function tail-file {
 }
 
 function Update-TabTitle {
-    $host.UI.RawUI.WindowTitle = "$(Get-Location)"
+    $shortPath = Get-ShortPath
+    # $currentDir = Split-Path -Leaf (Get-Location)
+    $host.UI.RawUI.WindowTitle = $shortPath
+}
+
+function Get-ShortPath {
+    $path = Get-Location
+    $parts = $path.Path -split [regex]::Escape([IO.Path]::DirectorySeparatorChar)
+    $depth = 2
+    if ($parts.Length -le $depth) {
+        return ($parts -join '/')
+    }
+    return ($parts[-$depth..-1] -join '/')
 }
 
 function prompt {
