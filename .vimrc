@@ -37,6 +37,9 @@ let g:moonflyItalics = v:false
 "-----------------------------------------------------------------------"
 "
 
+" 오리지날 VI와 호환하지 않음 (vim 전용기능 사용)
+set nocompatible "Vim Using
+
 let &t_SI = "\<ESC>[6 q"
 let &t_EI = "\<ESC>[2 q"
 
@@ -47,11 +50,16 @@ autocmd FileType * setlocal formatoptions-=cro
 
 set scrolloff=8
 
+" Allow recursive search
+set path+=**
+
+" Ignore heavy folders to keep search fast
+set wildignore+=**/node_modules/**,**/dist/**,**/.git/**,**/build/**
+
 " 가독성이 좋아짐 bacgkround dark
 set bg=dark
 
-" 오리지날 VI와 호환하지 않음 (vim 전용기능 사용)
-set nocompatible "Vim Using
+" Encoding
 set encoding=utf-8
 set fencs=utf-8,euc-kr
 set termencoding=utf-8 " terminal encoding
@@ -61,6 +69,7 @@ set bs=indent,eol,start
 
 " 줄번호 표시
 set nu
+set rnu
 
 " 자동 줄바꿈 안함
 "set nowrap
