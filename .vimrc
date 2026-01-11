@@ -128,6 +128,13 @@ set backspace=eol,start,indent "  줄의 끝, 시작, 들여쓰기에서 백스�
 " 현재 라인 highlighting
 set cursorline
 
+" Netrw
+let g:netrw_banner=0
+let g:netrw_browse_split=0
+let g:netrw_altv=1
+let g:netrw_liststyle=3
+let g:netrw_list_hide= '.*\.swp$,.DS_Store,*/tmp/*,*.so,*.swp,*.zip,*.git,^\.\.\=/\=$'
+
 "-----------------------------------------------------------------------"
 " Indentation
 "-----------------------------------------------------------------------"
@@ -142,6 +149,11 @@ set autoindent
 set smartindent
 set cindent
 set smarttab
+
+" c
+autocmd FileType c set softtabstop=4
+autocmd FileType c set tabstop=4
+autocmd FileType c set shiftwidth=4
 
 " python
 autocmd FileType python set softtabstop=4
