@@ -2,4 +2,6 @@
 
 This repository is about my configuration files.
 
+- Vim
+- Zsh
 - Tmux

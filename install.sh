@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Specify the source files
-src_files=(~/.zshrc ~/.vimrc ~/.config/tmux/tmux.conf ~/.ideavimrc ~/.vrapperrc)
+src_files=(~/.zshrc ~/.vimrc ~/.config/tmux/tmux.conf)
 
 for file in "${src_files[@]}"; do
     file_name=$(basename "$file")
