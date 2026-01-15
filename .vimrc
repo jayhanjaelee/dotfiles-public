@@ -39,6 +39,16 @@ let g:moonflyItalics = v:false
 "-----------------------------------------------------------------------"
 "
 
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=MesloLGM\ Nerd\ Font\ Mono:h10.5
+  elseif has("gui_macvim")
+    set guifont=MesloLGM\ Nerd\ Font\ Mono:h10.5
+  elseif has("gui_win32")
+    set guifont=MesloLGM\ Nerd\ Font\ Mono:h10.5
+  endif
+endif
+
 " 오리지날 VI와 호환하지 않음 (vim 전용기능 사용)
 set nocompatible "Vim Using
 
@@ -122,7 +132,7 @@ set clipboard=unnamed "use OS clipboard
 
 " 키워드 입력시 점진적 검색
 set incsearch
-set spell
+set nospell
 
 set nobackup " 백업 파일을 안만듬
 set nowrapscan " 검색할 때 문서의 끝에서 처음으로 안돌아감
