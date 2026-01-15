@@ -6,6 +6,8 @@ call plug#begin('~/.vim/plugged')
    Plug 'bluz71/vim-moonfly-colors', { 'as': 'moonfly' }
    Plug 'itchyny/lightline.vim'
    Plug 'christoomey/vim-tmux-navigator'
+   Plug 'jceb/vim-orgmode'
+   Plug 'tpope/vim-surround'
 call plug#end()
 
 "-----------------------------------------------------------------------"
@@ -55,6 +57,9 @@ set path+=**
 
 " Ignore heavy folders to keep search fast
 set wildignore+=**/node_modules/**,**/dist/**,**/.git/**,**/build/**
+
+" 각 항목에 대응하는 문자 설정
+set listchars=tab:\ ,eol:󰌑,trail:󱁐,extends:>,precedes:<
 
 " 가독성이 좋아짐 bacgkround dark
 set bg=dark
