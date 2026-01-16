@@ -65,6 +65,8 @@ set scrolloff=8
 " Allow recursive search
 set path+=**
 
+set wildmenu
+set wildmode=full
 " Ignore heavy folders to keep search fast
 set wildignore+=**/node_modules/**,**/dist/**,**/.git/**,**/build/**
 
