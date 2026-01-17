@@ -71,9 +71,6 @@ set wildignore+=**/node_modules/**,**/dist/**,**/.git/**,**/build/**
 " 각 항목에 대응하는 문자 설정
 set listchars=tab:\ ,eol:󰌑,trail:󱁐,extends:>,precedes:<
 
-" ctags config 현재 폴더에서 tags 파일 검색, 없으면 상위폴더에서 찾음.
-set tags=./tags,tags;
-
 " 가독성이 좋아짐 bacgkround dark
 set bg=dark
 
@@ -177,10 +174,27 @@ set smartindent
 set cindent
 set smarttab
 
+" ctags
+set omnifunc=ccomplete#Complete
+" config 현재 폴더에서 tags 파일 검색, 없으면 상위폴더에서 찾음.
+set tags=./tags,tags
+
 " c
 autocmd FileType c set softtabstop=4
 autocmd FileType c set tabstop=4
 autocmd FileType c set shiftwidth=4
+
+" .C 파일 템플릿
+autocmd BufNewFile *.c 0r ~/.vim/templates/c.skeleton
+autocmd BufNewFile *.c,*.h! %s/FILENAME/\=expand("%:t")/ge
+autocmd BufNewFile *.c,*.h! %s/CURRENT_DATE/\=strftime("%Y-%m-%d %H:%M")/ge
+autocmd BufNewFile *.c! %s/HEADER_FILE/\=expand("%:t:r") . ".h"/ge
+autocmd BufNewFile *.c,*.h normal! G
+
+" 헤더파일용 템플릿
+autocmd BufNewFile *.h 0r! ~/.vim/templates/h.skeleton
+autocmd BufNewFile *.h! %s/HEADER_GUARD/\=toupper(substitute(expand("%:t"), "[.-]", "_", "g"))/ge
+autocmd BufNewFile *.h normal! 10G
 
 " python
 autocmd FileType python set softtabstop=4
