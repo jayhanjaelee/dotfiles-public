@@ -184,17 +184,26 @@ autocmd FileType c set softtabstop=4
 autocmd FileType c set tabstop=4
 autocmd FileType c set shiftwidth=4
 
-" .C 파일 템플릿
-autocmd BufNewFile *.c 0r ~/.vim/templates/c.skeleton
-autocmd BufNewFile *.c,*.h! %s/FILENAME/\=expand("%:t")/ge
-autocmd BufNewFile *.c,*.h! %s/CURRENT_DATE/\=strftime("%Y-%m-%d %H:%M")/ge
-autocmd BufNewFile *.c! %s/HEADER_FILE/\=expand("%:t:r") . ".h"/ge
-autocmd BufNewFile *.c,*.h normal! G
+let t_path = expand('~/.vim/templates/')
+augroup C_Templates
+    autocmd!
 
-" 헤더파일용 템플릿
-autocmd BufNewFile *.h 0r! ~/.vim/templates/h.skeleton
-autocmd BufNewFile *.h! %s/HEADER_GUARD/\=toupper(substitute(expand("%:t"), "[.-]", "_", "g"))/ge
-autocmd BufNewFile *.h normal! 10G
+    " [공통 처리] .c와 .h 파일 모두에 적용되는 치환 규칙
+    autocmd BufNewFile *.c,*.h silent! execute "0r " . t_path . (expand("%:e") == "c" ? "c.skeleton" : "h.skeleton")
+    autocmd BufNewFile *.c,*.h silent! %s/FILENAME/\=expand("%:t")/ge
+    autocmd BufNewFile *.c,*.h silent! %s/CURRENT_DATE/\=strftime("%Y-%m-%d %H:%M")/ge
+
+    " [.c 전용] 헤더 포함 및 커서를 맨 아래로 이동
+    autocmd BufNewFile *.c silent! %s/HEADER_FILE/\=expand("%:t:r") . ".h"/ge
+    autocmd BufNewFile *.c normal! G
+
+    " [.h 전용] 헤더 가드 생성 및 커서를 본문 위치(10행)로 이동
+    autocmd BufNewFile *.h silent! %s/HEADER_GUARD/\=toupper(substitute(expand("%:t"), "[.-]", "_", "g"))/ge
+    autocmd BufNewFile *.h normal! 10G
+
+    " 모든 처리가 끝난 후 메시지 프롬프트 제거
+    autocmd BufNewFile *.c,*.h redraw
+augroup END
 
 " python
 autocmd FileType python set softtabstop=4
