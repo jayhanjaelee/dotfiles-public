@@ -65,13 +65,14 @@ set scrolloff=8
 " Allow recursive search
 set path+=**
 
-set wildmenu
-set wildmode=full
 " Ignore heavy folders to keep search fast
 set wildignore+=**/node_modules/**,**/dist/**,**/.git/**,**/build/**
 
 " 각 항목에 대응하는 문자 설정
 set listchars=tab:\ ,eol:󰌑,trail:󱁐,extends:>,precedes:<
+
+" ctags config 현재 폴더에서 tags 파일 검색, 없으면 상위폴더에서 찾음.
+set tags=./tags,tags;
 
 " 가독성이 좋아짐 bacgkround dark
 set bg=dark
@@ -145,12 +146,21 @@ set backspace=eol,start,indent "  줄의 끝, 시작, 들여쓰기에서 백스�
 " 현재 라인 highlighting
 set cursorline
 
+" Delete trailing whitespace before writing a file.
+autocmd BufWritePre * %s/\s\+$//e
+
 " Netrw
 let g:netrw_banner=0
 let g:netrw_browse_split=0
 let g:netrw_altv=1
 let g:netrw_liststyle=3
 let g:netrw_list_hide= '.*\.swp$,.DS_Store,*/tmp/*,*.so,*.swp,*.zip,*.git,^\.\.\=/\=$'
+" 정렬 기준을 시간순(Time)으로 설정
+let g:netrw_sort_by = 'time'
+" 내림차순 정렬 (최신 파일이 위로)
+let g:netrw_sort_direction = 'reverse'
+" 디렉토리를 목록 맨 위에 배치 (선택 사항)
+let g:netrw_sort_sequence = '[\/]$,*'
 
 "-----------------------------------------------------------------------"
 " Indentation
