@@ -65,8 +65,6 @@ set scrolloff=8
 " Allow recursive search
 set path+=**
 
-set wildmenu
-set wildmode=full
 " Ignore heavy folders to keep search fast
 set wildignore+=**/node_modules/**,**/dist/**,**/.git/**,**/build/**
 
@@ -145,12 +143,21 @@ set backspace=eol,start,indent "  줄의 끝, 시작, 들여쓰기에서 백스�
 " 현재 라인 highlighting
 set cursorline
 
+" Delete trailing whitespace before writing a file.
+autocmd BufWritePre * %s/\s\+$//e
+
 " Netrw
 let g:netrw_banner=0
 let g:netrw_browse_split=0
 let g:netrw_altv=1
 let g:netrw_liststyle=3
 let g:netrw_list_hide= '.*\.swp$,.DS_Store,*/tmp/*,*.so,*.swp,*.zip,*.git,^\.\.\=/\=$'
+" 정렬 기준을 시간순(Time)으로 설정
+let g:netrw_sort_by = 'time'
+" 내림차순 정렬 (최신 파일이 위로)
+let g:netrw_sort_direction = 'reverse'
+" 디렉토리를 목록 맨 위에 배치 (선택 사항)
+let g:netrw_sort_sequence = '[\/]$,*'
 
 "-----------------------------------------------------------------------"
 " Indentation
@@ -167,10 +174,36 @@ set smartindent
 set cindent
 set smarttab
 
+" ctags
+set omnifunc=ccomplete#Complete
+" config 현재 폴더에서 tags 파일 검색, 없으면 상위폴더에서 찾음.
+set tags=./tags,tags
+
 " c
 autocmd FileType c set softtabstop=4
 autocmd FileType c set tabstop=4
 autocmd FileType c set shiftwidth=4
+
+let t_path = expand('~/.vim/templates/')
+augroup C_Templates
+    autocmd!
+
+    " [공통 처리] .c와 .h 파일 모두에 적용되는 치환 규칙
+    autocmd BufNewFile *.c,*.h silent! execute "0r " . t_path . (expand("%:e") == "c" ? "c.skeleton" : "h.skeleton")
+    autocmd BufNewFile *.c,*.h silent! %s/FILENAME/\=expand("%:t")/ge
+    autocmd BufNewFile *.c,*.h silent! %s/CURRENT_DATE/\=strftime("%Y-%m-%d %H:%M")/ge
+
+    " [.c 전용] 헤더 포함 및 커서를 맨 아래로 이동
+    autocmd BufNewFile *.c silent! %s/HEADER_FILE/\=expand("%:t:r") . ".h"/ge
+    autocmd BufNewFile *.c normal! G
+
+    " [.h 전용] 헤더 가드 생성 및 커서를 본문 위치(10행)로 이동
+    autocmd BufNewFile *.h silent! %s/HEADER_GUARD/\=toupper(substitute(expand("%:t"), "[.-]", "_", "g"))/ge
+    autocmd BufNewFile *.h normal! 10G
+
+    " 모든 처리가 끝난 후 메시지 프롬프트 제거
+    autocmd BufNewFile *.c,*.h redraw
+augroup END
 
 " python
 autocmd FileType python set softtabstop=4
