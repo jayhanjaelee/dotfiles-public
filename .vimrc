@@ -178,6 +178,10 @@ set smarttab
 set omnifunc=ccomplete#Complete
 " config 현재 폴더에서 tags 파일 검색, 없으면 상위폴더에서 찾음.
 set tags=./tags,tags
+set tags+=~/libc.tags " c stdlib
+
+" 1. 완성 직후 팝업/미리보기 창을 자동으로 닫음
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " c
 autocmd FileType c set softtabstop=4
