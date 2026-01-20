@@ -227,6 +227,9 @@ autocmd FileType markdown set textwidth=80
 syntax enable
 filetype plugin indent on
 
+" php
+autocmd FileType php setlocal iskeyword+=$ "$기호 까지 한 단어로 취급하도록 설정.
+
 "-----------------------------------------------------------------------"
 " lightline
 "------------------------------------------------------------------------"
