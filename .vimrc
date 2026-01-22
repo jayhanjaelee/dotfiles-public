@@ -146,6 +146,8 @@ set cursorline
 " Delete trailing whitespace before writing a file.
 autocmd BufWritePre * %s/\s\+$//e
 
+set autoread
+
 " Netrw
 let g:netrw_banner=0
 let g:netrw_browse_split=0
