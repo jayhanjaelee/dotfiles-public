@@ -146,6 +146,8 @@ set cursorline
 " Delete trailing whitespace before writing a file.
 autocmd BufWritePre * %s/\s\+$//e
 
+set autoread
+
 " Netrw
 let g:netrw_banner=0
 let g:netrw_browse_split=0
@@ -178,6 +180,10 @@ set smarttab
 set omnifunc=ccomplete#Complete
 " config 현재 폴더에서 tags 파일 검색, 없으면 상위폴더에서 찾음.
 set tags=./tags,tags
+set tags+=~/libc.tags " c stdlib
+
+" 1. 완성 직후 팝업/미리보기 창을 자동으로 닫음
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " c
 autocmd FileType c set softtabstop=4
