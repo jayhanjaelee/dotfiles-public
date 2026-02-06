@@ -65,6 +65,7 @@ set scrolloff=8
 
 " Allow recursive search
 set path+=**
+set suffixesadd=.c,.h
 
 " Ignore heavy folders to keep search fast
 set wildignore+=**/node_modules/**,**/dist/**,**/.git/**,**/build/**
@@ -176,6 +177,10 @@ set autoindent
 set smartindent
 set cindent
 set smarttab
+
+" code folding
+set foldmethod=syntax " 문법 기반으로 code folding 활성화.
+set foldlevelstart=99 " 처음 파일 열었을때 코드 폴드 하지않도록 설정.
 
 " ctags
 set omnifunc=ccomplete#Complete
