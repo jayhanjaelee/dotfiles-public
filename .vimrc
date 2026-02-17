@@ -6,10 +6,11 @@ call plug#begin('~/.vim/plugged')
    Plug 'bluz71/vim-moonfly-colors', { 'as': 'moonfly' }
    Plug 'itchyny/lightline.vim'
    Plug 'christoomey/vim-tmux-navigator'
-   Plug 'jceb/vim-orgmode'
    Plug 'tpope/vim-surround'
+   Plug 'preservim/nerdtree'
    Plug 'neoclide/coc.nvim', {'branch': 'release'}
    Plug 'wellle/context.vim'
+   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 call plug#end()
 
 "-----------------------------------------------------------------------"
@@ -40,6 +41,8 @@ let g:moonflyItalics = v:false
 "vim configuration
 "-----------------------------------------------------------------------"
 "
+
+set mouse=a
 
 if has("gui_running")
   if has("gui_gtk2")
@@ -154,7 +157,7 @@ autocmd BufWritePre * %s/\s\+$//e
 set autoread
 
 " Netrw
-let g:netrw_banner=0
+let g:netrw_banner=1
 let g:netrw_browse_split=0
 let g:netrw_altv=1
 let g:netrw_liststyle=3
@@ -165,6 +168,14 @@ let g:netrw_sort_by = 'time'
 let g:netrw_sort_direction = 'reverse'
 " 디렉토리를 목록 맨 위에 배치 (선택 사항)
 let g:netrw_sort_sequence = '[\/]$,*'
+
+" NerdTree
+autocmd BufEnter * lcd %:p:h " synchronize working directory to current buffer path
+
+" FZF
+let g:fzf_layout = { 'down': '~20%' }
+set rtp+=/opt/homebrew/opt/fzf
+nnoremap <C-p> :FZF<cr>
 
 "-----------------------------------------------------------------------"
 " Indentation
@@ -198,6 +209,17 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 autocmd FileType c set softtabstop=4
 autocmd FileType c set tabstop=4
 autocmd FileType c set shiftwidth=4
+
+augroup RestoreCursor
+    autocmd!
+    autocmd BufReadPost *
+                \ let line = line("'\"")
+                \ | if line >= 1 && line <= line("$") && &filetype !~# 'commit'
+                \      && index(['xxd', 'gitrebase'], &filetype) == -1
+                \      && !&diff
+                \ |   execute "normal! g`\""
+                \ | endif
+augroup END
 
 let t_path = expand('~/.vim/templates/')
 augroup C_Templates
@@ -242,6 +264,28 @@ filetype plugin indent on
 autocmd FileType php setlocal iskeyword+=$ "$기호 까지 한 단어로 취급하도록 설정.
 
 "-----------------------------------------------------------------------"
+" lightline
+"------------------------------------------------------------------------"
+
+let g:lightline = {
+            \ 'colorscheme': 'moonfly',
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+            \             [ 'readonly', 'filename', 'modified' ] ]
+            \ },
+            \ }
+
+"-----------------------------------------------------------------------"
+" Keybindings
+"------------------------------------------------------------------------"
+
+let g:mapleader = " "
+
+nmap <leader>o o<Esc>0"_D
+nmap <leader>O O<Esc>0"_D
+nmap <leader>/ :noh<Return>
+
+"-----------------------------------------------------------------------"
 " coc
 "------------------------------------------------------------------------"
 " https://raw.githubusercontent.com/neoclide/coc.nvim/master/doc/coc-example-config.vim
@@ -264,26 +308,26 @@ set signcolumn=yes
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config
 inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
+            \ coc#pum#visible() ? coc#pum#next(1) :
+            \ CheckBackspace() ? "\<Tab>" :
+            \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+            \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use <c-space> to trigger completion
 if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
+    inoremap <silent><expr> <c-space> coc#refresh()
 else
-  inoremap <silent><expr> <c-@> coc#refresh()
+    inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
 " Use `[g` and `]g` to navigate diagnostics
@@ -301,11 +345,11 @@ nmap <silent><nowait> gr <Plug>(coc-references)
 nnoremap <silent> K :call ShowDocumentation()<CR>
 
 function! ShowDocumentation()
-  if CocAction('hasProvider', 'hover')
-    call CocActionAsync('doHover')
-  else
-    call feedkeys('K', 'in')
-  endif
+    if CocAction('hasProvider', 'hover')
+        call CocActionAsync('doHover')
+    else
+        call feedkeys('K', 'in')
+    endif
 endfunction
 
 " Highlight the symbol and its references when holding the cursor
@@ -319,9 +363,9 @@ xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s)
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    autocmd!
+    " Setup formatexpr specified filetype(s)
+    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
 augroup end
 
 " Applying code actions to the selected code block
@@ -357,12 +401,12 @@ omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> to scroll float windows/popups
 if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+    nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+    inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+    inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+    vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
 " Use CTRL-S for selections ranges
@@ -388,9 +432,9 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " Show all diagnostics
 nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document
 nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols
@@ -400,29 +444,12 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+" nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-"-----------------------------------------------------------------------"
-" lightline
-"------------------------------------------------------------------------"
-
-let g:lightline = {
-      \ 'colorscheme': 'moonfly',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ }
-
-"-----------------------------------------------------------------------"
-" Keybindings
-"------------------------------------------------------------------------"
-
-let g:mapleader = " "
-
-nmap <Leader>o o<Esc>0"_D
-nmap <Leader>O O<Esc>0"_D
-nmap <Leader>/ :noh<Return>
+" NerdTree
+nnoremap <leader>r :NERDTreeFind<cr>
+nnoremap <leader>e :NERDTreeToggle<CR>
+" nnoremap <leader>e :NERDTree .<CR>
 
 "-----------------------------------------------------------------------"
 " windows
@@ -453,8 +480,8 @@ nmap <Tab> :tabnext<Return>
 "-----------------------------------------------------------------------"
 " buffer
 "------------------------------------------------------------------------"
-nmap <Leader>w :%bd\|e#<Return>
-map <leader>n :bnext<cr>
-map <leader>p :bprevious<cr>
-map <leader>d :bdelete<cr>
-map <leader>l :buffers<cr>
+"nmap <Leader>w :%bd\|e#<Return>
+"map <leader>n :bnext<cr>
+"map <leader>p :bprevious<cr>
+"map <leader>d :bdelete<cr>
+"map <leader>l :buffers<cr>
