@@ -75,6 +75,8 @@ set suffixesadd=.c,.h
 
 " Ignore heavy folders to keep search fast
 set wildignore+=**/node_modules/**,**/dist/**,**/.git/**,**/build/**
+set wildmenu
+set wildoptions=pum " show list vertically
 
 " 각 항목에 대응하는 문자 설정
 set listchars=tab:\ ,eol:󰌑,trail:󱁐,extends:>,precedes:<
@@ -193,7 +195,7 @@ set cindent
 set smarttab
 
 " code folding
-set foldmethod=syntax " 문법 기반으로 code folding 활성화.
+set foldmethod=manual " 문법 기반으로 code folding 활성화.
 set foldlevelstart=99 " 처음 파일 열었을때 코드 폴드 하지않도록 설정.
 
 " ctags
@@ -485,3 +487,8 @@ nmap <Tab> :tabnext<Return>
 "map <leader>p :bprevious<cr>
 "map <leader>d :bdelete<cr>
 "map <leader>l :buffers<cr>
+
+"-----------------------------------------------------------------------"
+" misc
+"------------------------------------------------------------------------"
+nmap <leader>h :noh<cr>
