@@ -9,6 +9,7 @@ call plug#begin('~/.vim/plugged')
    Plug 'jceb/vim-orgmode'
    Plug 'tpope/vim-surround'
    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+   Plug 'wellle/context.vim'
 call plug#end()
 
 "-----------------------------------------------------------------------"
@@ -60,6 +61,8 @@ autocmd InsertEnter * set cursorline
 autocmd InsertLeave * set nocursorline
 
 autocmd FileType * setlocal formatoptions-=cro
+
+set noswapfile
 
 set scrolloff=8
 
