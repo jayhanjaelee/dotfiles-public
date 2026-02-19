@@ -7,10 +7,10 @@ call plug#begin('~/.vim/plugged')
    Plug 'itchyny/lightline.vim'
    Plug 'christoomey/vim-tmux-navigator'
    Plug 'tpope/vim-surround'
-   Plug 'preservim/nerdtree'
    Plug 'neoclide/coc.nvim', {'branch': 'release'}
    Plug 'wellle/context.vim'
    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+   Plug 'tpope/vim-commentary'
 call plug#end()
 
 "-----------------------------------------------------------------------"
@@ -108,7 +108,8 @@ set smartcase
 set sol
 
 " 비쥬얼 모드 동작 설정
-set sel=exclusive
+" set sel=exclusive
+set sel=inclusive
 
 " 괄호짝 찾기에서 <> 도 찾도록 추가
 set mps+=<:>
@@ -172,12 +173,12 @@ let g:netrw_sort_direction = 'reverse'
 let g:netrw_sort_sequence = '[\/]$,*'
 
 " NerdTree
-autocmd BufEnter * lcd %:p:h " synchronize working directory to current buffer path
+" autocmd BufEnter * lcd %:p:h " synchronize working directory to current buffer path
 
 " FZF
 let g:fzf_layout = { 'down': '~20%' }
 set rtp+=/opt/homebrew/opt/fzf
-nnoremap <C-p> :FZF<cr>
+nnoremap <leader>ff :FZF<cr>
 
 "-----------------------------------------------------------------------"
 " Indentation
@@ -192,6 +193,7 @@ set textwidth=140
 set autoindent
 set smartindent
 set cindent
+set cinoptions=g-1
 set smarttab
 
 " code folding
@@ -205,43 +207,60 @@ set tags=./tags,tags
 set tags+=~/libc.tags " c stdlib
 
 " 1. 완성 직후 팝업/미리보기 창을 자동으로 닫음
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " c
 autocmd FileType c set softtabstop=4
 autocmd FileType c set tabstop=4
 autocmd FileType c set shiftwidth=4
 
+" cpp
+autocmd FileType cpp set softtabstop=4
+autocmd FileType cpp set tabstop=4
+autocmd FileType cpp set shiftwidth=4
+
+augroup c_mappings
+  autocmd!
+  autocmd FileType c   nnoremap <buffer> ,s :find %:t:r.c<CR>
+  autocmd FileType c   nnoremap <buffer> ,S :sf %:t:r.c<CR>
+  autocmd FileType c   nnoremap <buffer> ,h :find %:t:r.h<CR>
+  autocmd FileType c   nnoremap <buffer> ,H :sf %:t:r.h<CR>
+  autocmd FileType cpp nnoremap <buffer> ,s :find %:t:r.cpp<CR>
+  autocmd FileType cpp nnoremap <buffer> ,S :sf %:t:r.cpp<CR>
+  autocmd FileType cpp nnoremap <buffer> ,h :find %:t:r.h<CR>
+  autocmd FileType cpp nnoremap <buffer> ,H :sf %:t:r.h<CR>
+augroup END
+
 augroup RestoreCursor
-    autocmd!
-    autocmd BufReadPost *
-                \ let line = line("'\"")
-                \ | if line >= 1 && line <= line("$") && &filetype !~# 'commit'
-                \      && index(['xxd', 'gitrebase'], &filetype) == -1
-                \      && !&diff
-                \ |   execute "normal! g`\""
-                \ | endif
+  autocmd!
+  autocmd BufReadPost *
+        \ let line = line("'\"")
+        \ | if line >= 1 && line <= line("$") && &filetype !~# 'commit'
+        \      && index(['xxd', 'gitrebase'], &filetype) == -1
+        \      && !&diff
+        \ |   execute "normal! g`\""
+        \ | endif
 augroup END
 
 let t_path = expand('~/.vim/templates/')
 augroup C_Templates
-    autocmd!
+  autocmd!
 
-    " [공통 처리] .c와 .h 파일 모두에 적용되는 치환 규칙
-    autocmd BufNewFile *.c,*.h silent! execute "0r " . t_path . (expand("%:e") == "c" ? "c.skeleton" : "h.skeleton")
-    autocmd BufNewFile *.c,*.h silent! %s/FILENAME/\=expand("%:t")/ge
-    autocmd BufNewFile *.c,*.h silent! %s/CURRENT_DATE/\=strftime("%Y-%m-%d %H:%M")/ge
+  " [공통 처리] .c와 .h 파일 모두에 적용되는 치환 규칙
+  autocmd BufNewFile *.c,*.h silent! execute "0r " . t_path . (expand("%:e") == "c" ? "c.skeleton" : "h.skeleton")
+  autocmd BufNewFile *.c,*.h silent! %s/FILENAME/\=expand("%:t")/ge
+  autocmd BufNewFile *.c,*.h silent! %s/CURRENT_DATE/\=strftime("%Y-%m-%d %H:%M")/ge
 
-    " [.c 전용] 헤더 포함 및 커서를 맨 아래로 이동
-    autocmd BufNewFile *.c silent! %s/HEADER_FILE/\=expand("%:t:r") . ".h"/ge
-    autocmd BufNewFile *.c normal! G
+  " [.c 전용] 헤더 포함 및 커서를 맨 아래로 이동
+  autocmd BufNewFile *.c silent! %s/HEADER_FILE/\=expand("%:t:r") . ".h"/ge
+  autocmd BufNewFile *.c normal! G
 
-    " [.h 전용] 헤더 가드 생성 및 커서를 본문 위치(10행)로 이동
-    autocmd BufNewFile *.h silent! %s/HEADER_GUARD/\=toupper(substitute(expand("%:t"), "[.-]", "_", "g"))/ge
-    autocmd BufNewFile *.h normal! 10G
+  " [.h 전용] 헤더 가드 생성 및 커서를 본문 위치(10행)로 이동
+  autocmd BufNewFile *.h silent! %s/HEADER_GUARD/\=toupper(substitute(expand("%:t"), "[.-]", "_", "g"))/ge
+  autocmd BufNewFile *.h normal! 10G
 
-    " 모든 처리가 끝난 후 메시지 프롬프트 제거
-    autocmd BufNewFile *.c,*.h redraw
+  " 모든 처리가 끝난 후 메시지 프롬프트 제거
+  autocmd BufNewFile *.c,*.h redraw
 augroup END
 
 " python
@@ -270,12 +289,12 @@ autocmd FileType php setlocal iskeyword+=$ "$기호 까지 한 단어로 취급�
 "------------------------------------------------------------------------"
 
 let g:lightline = {
-            \ 'colorscheme': 'moonfly',
-            \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ],
-            \             [ 'readonly', 'filename', 'modified' ] ]
-            \ },
-            \ }
+      \ 'colorscheme': 'moonfly',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ }
 
 "-----------------------------------------------------------------------"
 " Keybindings
@@ -310,26 +329,26 @@ set signcolumn=yes
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config
 inoremap <silent><expr> <TAB>
-            \ coc#pum#visible() ? coc#pum#next(1) :
-            \ CheckBackspace() ? "\<Tab>" :
-            \ coc#refresh()
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-            \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! CheckBackspace() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use <c-space> to trigger completion
 if has('nvim')
-    inoremap <silent><expr> <c-space> coc#refresh()
+  inoremap <silent><expr> <c-space> coc#refresh()
 else
-    inoremap <silent><expr> <c-@> coc#refresh()
+  inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
 " Use `[g` and `]g` to navigate diagnostics
@@ -347,11 +366,11 @@ nmap <silent><nowait> gr <Plug>(coc-references)
 nnoremap <silent> K :call ShowDocumentation()<CR>
 
 function! ShowDocumentation()
-    if CocAction('hasProvider', 'hover')
-        call CocActionAsync('doHover')
-    else
-        call feedkeys('K', 'in')
-    endif
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
 endfunction
 
 " Highlight the symbol and its references when holding the cursor
@@ -365,9 +384,9 @@ xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
-    autocmd!
-    " Setup formatexpr specified filetype(s)
-    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  autocmd!
+  " Setup formatexpr specified filetype(s)
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
 augroup end
 
 " Applying code actions to the selected code block
@@ -403,12 +422,12 @@ omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> to scroll float windows/popups
 if has('nvim-0.4.0') || has('patch-8.2.0750')
-    nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-    nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-    inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-    inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-    vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-    vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
 " Use CTRL-S for selections ranges
@@ -448,11 +467,6 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 " nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-" NerdTree
-nnoremap <leader>r :NERDTreeFind<cr>
-nnoremap <leader>e :NERDTreeToggle<CR>
-" nnoremap <leader>e :NERDTree .<CR>
-
 "-----------------------------------------------------------------------"
 " windows
 "------------------------------------------------------------------------"
@@ -471,13 +485,13 @@ map sl <C-w>l
 " tab
 "------------------------------------------------------------------------"
 
-nmap te :tabedit<Return>
-nmap tw :tabclose<Return>
-nmap ta :tabonly<Return>
+" nmap te :tabedit<Return>
+" nmap tw :tabclose<Return>
+" nmap ta :tabonly<Return>
 
 " Switch tab
-nmap <S-Tab> :tabprev<Return>
-nmap <Tab> :tabnext<Return>
+" nmap <S-Tab> :tabprev<Return>
+" nmap <Tab> :tabnext<Return>
 
 "-----------------------------------------------------------------------"
 " buffer
