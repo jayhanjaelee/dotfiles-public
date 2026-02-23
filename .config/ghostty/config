@@ -3,10 +3,14 @@ theme = Tomorrow Night Bright
 window-subtitle = working-directory
 
 font-family = "MesloLGM Nerd Font Mono Regular, Sarasa Mono K"
-font-size = 14
+font-size = 15
+font-style-bold = false
+font-style-bold-italic = false
 
-cursor-style = bar
+shell-integration-features = no-cursor
+cursor-style = block
 cursor-color = #D3D3D3
 cursor-opacity = 0.7
 
+macos-option-as-alt = true
 keybind = global:cmd+backquote=toggle_quick_terminal
