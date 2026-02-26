@@ -6,9 +6,11 @@ call plug#begin('~/.vim/plugged')
    Plug 'bluz71/vim-moonfly-colors', { 'as': 'moonfly' }
    Plug 'itchyny/lightline.vim'
    Plug 'christoomey/vim-tmux-navigator'
-   Plug 'jceb/vim-orgmode'
    Plug 'tpope/vim-surround'
    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+   Plug 'wellle/context.vim'
+   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+   Plug 'tpope/vim-commentary'
 call plug#end()
 
 "-----------------------------------------------------------------------"
@@ -40,6 +42,8 @@ let g:moonflyItalics = v:false
 "-----------------------------------------------------------------------"
 "
 
+set mouse=a
+
 if has("gui_running")
   if has("gui_gtk2")
     set guifont=MesloLGM\ Nerd\ Font\ Mono:h10.5
@@ -61,6 +65,8 @@ autocmd InsertLeave * set nocursorline
 
 autocmd FileType * setlocal formatoptions-=cro
 
+set noswapfile
+
 set scrolloff=8
 
 " Allow recursive search
@@ -69,6 +75,8 @@ set suffixesadd=.c,.h
 
 " Ignore heavy folders to keep search fast
 set wildignore+=**/node_modules/**,**/dist/**,**/.git/**,**/build/**
+set wildmenu
+set wildoptions=pum " show list vertically
 
 " 각 항목에 대응하는 문자 설정
 set listchars=tab:\ ,eol:󰌑,trail:󱁐,extends:>,precedes:<
@@ -100,7 +108,8 @@ set smartcase
 set sol
 
 " 비쥬얼 모드 동작 설정
-set sel=exclusive
+" set sel=exclusive
+set sel=inclusive
 
 " 괄호짝 찾기에서 <> 도 찾도록 추가
 set mps+=<:>
@@ -151,7 +160,7 @@ autocmd BufWritePre * %s/\s\+$//e
 set autoread
 
 " Netrw
-let g:netrw_banner=0
+let g:netrw_banner=1
 let g:netrw_browse_split=0
 let g:netrw_altv=1
 let g:netrw_liststyle=3
@@ -162,6 +171,14 @@ let g:netrw_sort_by = 'time'
 let g:netrw_sort_direction = 'reverse'
 " 디렉토리를 목록 맨 위에 배치 (선택 사항)
 let g:netrw_sort_sequence = '[\/]$,*'
+
+" NerdTree
+" autocmd BufEnter * lcd %:p:h " synchronize working directory to current buffer path
+
+" FZF
+let g:fzf_layout = { 'down': '~20%' }
+set rtp+=/opt/homebrew/opt/fzf
+nnoremap <leader>ff :FZF<cr>
 
 "-----------------------------------------------------------------------"
 " Indentation
@@ -176,10 +193,11 @@ set textwidth=140
 set autoindent
 set smartindent
 set cindent
+set cinoptions=g-1
 set smarttab
 
 " code folding
-set foldmethod=syntax " 문법 기반으로 code folding 활성화.
+set foldmethod=manual " 문법 기반으로 code folding 활성화.
 set foldlevelstart=99 " 처음 파일 열었을때 코드 폴드 하지않도록 설정.
 
 " ctags
@@ -189,32 +207,60 @@ set tags=./tags,tags
 set tags+=~/libc.tags " c stdlib
 
 " 1. 완성 직후 팝업/미리보기 창을 자동으로 닫음
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " c
 autocmd FileType c set softtabstop=4
 autocmd FileType c set tabstop=4
 autocmd FileType c set shiftwidth=4
 
+" cpp
+autocmd FileType cpp set softtabstop=4
+autocmd FileType cpp set tabstop=4
+autocmd FileType cpp set shiftwidth=4
+
+augroup c_mappings
+  autocmd!
+  autocmd FileType c   nnoremap <buffer> ,s :find %:t:r.c<CR>
+  autocmd FileType c   nnoremap <buffer> ,S :sf %:t:r.c<CR>
+  autocmd FileType c   nnoremap <buffer> ,h :find %:t:r.h<CR>
+  autocmd FileType c   nnoremap <buffer> ,H :sf %:t:r.h<CR>
+  autocmd FileType cpp nnoremap <buffer> ,s :find %:t:r.cpp<CR>
+  autocmd FileType cpp nnoremap <buffer> ,S :sf %:t:r.cpp<CR>
+  autocmd FileType cpp nnoremap <buffer> ,h :find %:t:r.h<CR>
+  autocmd FileType cpp nnoremap <buffer> ,H :sf %:t:r.h<CR>
+augroup END
+
+augroup RestoreCursor
+  autocmd!
+  autocmd BufReadPost *
+        \ let line = line("'\"")
+        \ | if line >= 1 && line <= line("$") && &filetype !~# 'commit'
+        \      && index(['xxd', 'gitrebase'], &filetype) == -1
+        \      && !&diff
+        \ |   execute "normal! g`\""
+        \ | endif
+augroup END
+
 let t_path = expand('~/.vim/templates/')
 augroup C_Templates
-    autocmd!
+  autocmd!
 
-    " [공통 처리] .c와 .h 파일 모두에 적용되는 치환 규칙
-    autocmd BufNewFile *.c,*.h silent! execute "0r " . t_path . (expand("%:e") == "c" ? "c.skeleton" : "h.skeleton")
-    autocmd BufNewFile *.c,*.h silent! %s/FILENAME/\=expand("%:t")/ge
-    autocmd BufNewFile *.c,*.h silent! %s/CURRENT_DATE/\=strftime("%Y-%m-%d %H:%M")/ge
+  " [공통 처리] .c와 .h 파일 모두에 적용되는 치환 규칙
+  autocmd BufNewFile *.c,*.h silent! execute "0r " . t_path . (expand("%:e") == "c" ? "c.skeleton" : "h.skeleton")
+  autocmd BufNewFile *.c,*.h silent! %s/FILENAME/\=expand("%:t")/ge
+  autocmd BufNewFile *.c,*.h silent! %s/CURRENT_DATE/\=strftime("%Y-%m-%d %H:%M")/ge
 
-    " [.c 전용] 헤더 포함 및 커서를 맨 아래로 이동
-    autocmd BufNewFile *.c silent! %s/HEADER_FILE/\=expand("%:t:r") . ".h"/ge
-    autocmd BufNewFile *.c normal! G
+  " [.c 전용] 헤더 포함 및 커서를 맨 아래로 이동
+  autocmd BufNewFile *.c silent! %s/HEADER_FILE/\=expand("%:t:r") . ".h"/ge
+  autocmd BufNewFile *.c normal! G
 
-    " [.h 전용] 헤더 가드 생성 및 커서를 본문 위치(10행)로 이동
-    autocmd BufNewFile *.h silent! %s/HEADER_GUARD/\=toupper(substitute(expand("%:t"), "[.-]", "_", "g"))/ge
-    autocmd BufNewFile *.h normal! 10G
+  " [.h 전용] 헤더 가드 생성 및 커서를 본문 위치(10행)로 이동
+  autocmd BufNewFile *.h silent! %s/HEADER_GUARD/\=toupper(substitute(expand("%:t"), "[.-]", "_", "g"))/ge
+  autocmd BufNewFile *.h normal! 10G
 
-    " 모든 처리가 끝난 후 메시지 프롬프트 제거
-    autocmd BufNewFile *.c,*.h redraw
+  " 모든 처리가 끝난 후 메시지 프롬프트 제거
+  autocmd BufNewFile *.c,*.h redraw
 augroup END
 
 " python
@@ -237,6 +283,28 @@ filetype plugin indent on
 
 " php
 autocmd FileType php setlocal iskeyword+=$ "$기호 까지 한 단어로 취급하도록 설정.
+
+"-----------------------------------------------------------------------"
+" lightline
+"------------------------------------------------------------------------"
+
+let g:lightline = {
+      \ 'colorscheme': 'moonfly',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ }
+
+"-----------------------------------------------------------------------"
+" Keybindings
+"------------------------------------------------------------------------"
+
+let g:mapleader = " "
+
+nmap <leader>o o<Esc>0"_D
+nmap <leader>O O<Esc>0"_D
+nmap <leader>/ :noh<Return>
 
 "-----------------------------------------------------------------------"
 " coc
@@ -269,7 +337,7 @@ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! CheckBackspace() abort
   let col = col('.') - 1
@@ -385,9 +453,9 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " Show all diagnostics
 nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document
 nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols
@@ -397,29 +465,7 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-
-"-----------------------------------------------------------------------"
-" lightline
-"------------------------------------------------------------------------"
-
-let g:lightline = {
-      \ 'colorscheme': 'moonfly',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ }
-
-"-----------------------------------------------------------------------"
-" Keybindings
-"------------------------------------------------------------------------"
-
-let g:mapleader = " "
-
-nmap <Leader>o o<Esc>0"_D
-nmap <Leader>O O<Esc>0"_D
-nmap <Leader>/ :noh<Return>
+" nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 "-----------------------------------------------------------------------"
 " windows
@@ -439,19 +485,24 @@ map sl <C-w>l
 " tab
 "------------------------------------------------------------------------"
 
-nmap te :tabedit<Return>
-nmap tw :tabclose<Return>
-nmap ta :tabonly<Return>
+" nmap te :tabedit<Return>
+" nmap tw :tabclose<Return>
+" nmap ta :tabonly<Return>
 
 " Switch tab
-nmap <S-Tab> :tabprev<Return>
-nmap <Tab> :tabnext<Return>
+" nmap <S-Tab> :tabprev<Return>
+" nmap <Tab> :tabnext<Return>
 
 "-----------------------------------------------------------------------"
 " buffer
 "------------------------------------------------------------------------"
-nmap <Leader>w :%bd\|e#<Return>
-map <leader>n :bnext<cr>
-map <leader>p :bprevious<cr>
-map <leader>d :bdelete<cr>
-map <leader>l :buffers<cr>
+"nmap <Leader>w :%bd\|e#<Return>
+"map <leader>n :bnext<cr>
+"map <leader>p :bprevious<cr>
+"map <leader>d :bdelete<cr>
+"map <leader>l :buffers<cr>
+
+"-----------------------------------------------------------------------"
+" misc
+"------------------------------------------------------------------------"
+nmap <leader>h :noh<cr>
