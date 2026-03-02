@@ -66,6 +66,7 @@ autocmd InsertLeave * set nocursorline
 autocmd FileType * setlocal formatoptions-=cro
 
 set noswapfile
+set hidden
 
 set scrolloff=8
 
