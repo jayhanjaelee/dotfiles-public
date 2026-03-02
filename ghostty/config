@@ -1,0 +1,58 @@
+theme = Tomorrow Night Bright
+term = xterm-256color
+
+window-subtitle = working-directory
+
+font-family = "MesloLGM Nerd Font Mono Regular, Sarasa Mono K"
+font-size = 15
+font-style-bold = false
+font-style-bold-italic = false
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+
+shell-integration-features = no-cursor
+cursor-style = block
+cursor-color = #D3D3D3
+cursor-opacity = 0.7
+
+macos-option-as-alt = true
+keybind = global:cmd+backquote=toggle_quick_terminal
+
+# Pass through ctrl+shift+d to the terminal (for Neovim)
+keybind = ctrl+shift+d=unbind
+
+# Pass through ctrl+period to the terminal (for Neovim)
+keybind = ctrl+period=unbind
+
+# notification
+bell-features = system
+
+# Pane Navigation
+# keybind = ctrl+h=goto_split:left
+# keybind = ctrl+j=goto_split:down
+# keybind = ctrl+k=goto_split:up
+# keybind = ctrl+l=goto_split:right
+
+# tairiki theme
+palette = 0=#3b3f4c
+palette = 1=#cc6666
+palette = 2=#b5bd68
+palette = 3=#f0c674
+palette = 4=#81a2be
+palette = 5=#b294bb
+palette = 6=#7eada7
+palette = 7=#c5c8c6
+palette = 8=#666666
+palette = 9=#cc6666
+palette = 10=#b5bd68
+palette = 11=#f0c674
+palette = 12=#81a2be
+palette = 13=#b294bb
+palette = 14=#7eada7
+palette = 15=#f5f8f6
+# background = #151515
+foreground = #c5c8c6
+cursor-color = #c5c8c6
+selection-background = #373b41
+selection-foreground = #c5c8c6
