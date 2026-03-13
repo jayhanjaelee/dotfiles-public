@@ -1,5 +1,0 @@
-#!/bin/bash
-tmux new-session -s dev -n 'dev' -d
-tmux split-window -h -l 50%
-
-tmux attach -t dev
