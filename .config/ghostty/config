@@ -13,4 +13,20 @@ cursor-color = #D3D3D3
 cursor-opacity = 0.7
 
 macos-option-as-alt = true
-keybind = global:cmd+backquote=toggle_quick_terminal
+
+keybind = super+t=unbind
+keybind = super+w=unbind
+keybind = super+[=unbind
+keybind = super+]=unbind
+keybind = super+shift+[=unbind
+keybind = super+shift+]=unbind
+keybind = super+k=unbind
+keybind = super+1=unbind
+keybind = super+2=unbind
+keybind = super+3=unbind
+keybind = super+4=unbind
+keybind = super+5=unbind
+keybind = super+6=unbind
+keybind = super+7=unbind
+keybind = super+8=unbind
+keybind = super+9=unbind
