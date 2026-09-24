@@ -54,7 +54,8 @@ next_workspace = "ctrl+cmd+l"
 switch_tab = "prefix+1..9"
 switch_workspace = "alt+cmd+1..9"
 focus_agent = ""
-previous_agent = ["prefix+[", "ctrl+cmd+k"]
+previous_agent = "ctrl+cmd+k"
+copy_mode = "prefix+["
 next_agent = ["prefix+]", "ctrl+cmd+j"]
 cycle_pane_next = ["prefix+tab", "alt+up"]
 cycle_pane_previous = ["prefix+shift+tab", "alt+down"]
@@ -77,7 +78,7 @@ cycle_pane_previous = ["prefix+shift+tab", "alt+down"]
 agent_panel_sort = "priority"
 prompt_new_tab_name = false
 status_indicators = "dots"
-copy_on_select = false
+copy_on_select = true
 # 분할된 pane 사이의 gap 제거 (구분선 테두리 공유)
 pane_gaps = false
 # pane 바깥 테두리 제거
