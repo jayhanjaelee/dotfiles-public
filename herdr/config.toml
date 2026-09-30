@@ -52,13 +52,13 @@ close_tab = ["prefix+shift+x", "cmd+w", "prefix+w"]
 goto = ["prefix+g", "cmd+k"]
 previous_tab = ["prefix+p", "ctrl+cmd+p"]
 next_tab = ["prefix+n", "ctrl+cmd+n"]
-previous_workspace = ["ctrl+cmd+h", "ctrl+super+h"]
-next_workspace = ["ctrl+cmd+l", "ctrl+super+l"] 
+previous_workspace = "ctrl+cmd+h"
+next_workspace = "ctrl+cmd+l"
 switch_tab = "prefix+1..9"
 switch_workspace = "alt+cmd+1..9"
 focus_agent = "ctrl+1..9"
-previous_agent = ["ctrl+cmd+k", "ctrl+super+j"]
-next_agent = ["prefix+]", "ctrl+cmd+j", "ctrl+super+k"]
+previous_agent = "ctrl+cmd+k"
+next_agent = ["prefix+]", "ctrl+cmd+j"]
 cycle_pane_next = ["prefix+tab", "alt+up"]
 cycle_pane_previous = ["prefix+shift+tab", "alt+down"]
 
