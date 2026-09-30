@@ -79,6 +79,7 @@ agent_panel_sort = "priority"
 prompt_new_tab_name = false
 status_indicators = "dots"
 copy_on_select = true
+pane_gaps = false
 tab_bar_position = "bottom"
 tab_bar_right = [
   { type = "zoom" },
