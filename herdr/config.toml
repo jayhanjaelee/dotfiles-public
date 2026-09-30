@@ -49,7 +49,8 @@ navigate_workspace_up = "k"
 navigate_workspace_down = "j"
 
 new_tab = ["prefix+t", "prefix+c"]
-close_tab = ["prefix+shift+x", "prefix+w"]
+close_tab = "prefix+shift+x"
+workspace_picker = "prefix+w"
 goto = "prefix+g"
 previous_tab = "prefix+p"
 next_tab = "prefix+n"
