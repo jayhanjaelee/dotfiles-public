@@ -26,6 +26,7 @@ detach = "prefix+d"
 settings = "prefix+,"
 rename_workspace = ["prefix+ctrl+r", "cmd+r"]
 rename_tab = "prefix+."
+rename_pane = "prefix+/"
 focus_pane_left = "prefix+h"
 focus_pane_down = "prefix+j"
 focus_pane_up = "prefix+k"
