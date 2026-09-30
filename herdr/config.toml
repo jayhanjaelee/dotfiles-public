@@ -8,9 +8,9 @@ name = "catppuccin"
 auto_switch = false
 
 [theme.custom]
-red = "#4e82ef"     # blocked, needs input
-teal = "#4e82ef"    # done, not seen yet
-yellow = "#a78bfa"  # working
+red = "#FF746C"     # blocked, needs input
+teal = "#88E788"    # done, not seen yet
+yellow = "#ffe200"  # working
 active_row_bg = "#45475a"
 
 [terminal]
@@ -25,6 +25,7 @@ prefix = "ctrl+space"
 detach = "prefix+d"
 settings = "prefix+,"
 rename_workspace = ["prefix+ctrl+r", "cmd+r"]
+rename_tab = "prefix+."
 focus_pane_left = "prefix+h"
 focus_pane_down = "prefix+j"
 focus_pane_up = "prefix+k"
@@ -38,24 +39,25 @@ resize_pane_left = "ctrl+shift+alt+h"   # optional, e.g. "ctrl+shift+alt+left" r
 resize_pane_down = "ctrl+shift+alt+k"   # optional, e.g. "ctrl+shift+alt+down"
 resize_pane_up = "ctrl+shift+alt+j"     # optional, e.g. "ctrl+shift+alt+up"
 resize_pane_right = "ctrl+shift+alt+l"  # optional, e.g. "ctrl+shift+alt+right"
+copy_mode = "prefix+["
 
 # Navigate-mode movement. These local shortcuts win while navigate mode is open.
 # They are independent from focus_pane_*. Do not include prefix+, esc, enter, tab, or 1..9 here.
 navigate_workspace_up = "k"
 navigate_workspace_down = "j"
 
-new_tab = ["prefix+c", "cmd+t"]
-close_tab = ["prefix+shift+x", "cmd+w"]
+new_tab = ["prefix+t", "cmd+t", "prefix+c"]
+close_tab = ["prefix+shift+x", "cmd+w", "prefix+w"]
 goto = ["prefix+g", "cmd+k"]
 previous_tab = ["prefix+p", "ctrl+cmd+p"]
 next_tab = ["prefix+n", "ctrl+cmd+n"]
-previous_workspace = "ctrl+cmd+h" 
-next_workspace = "ctrl+cmd+l" 
+previous_workspace = ["ctrl+cmd+h", "ctrl+super+h"]
+next_workspace = ["ctrl+cmd+l", "ctrl+super+l"] 
 switch_tab = "prefix+1..9"
 switch_workspace = "alt+cmd+1..9"
 focus_agent = "ctrl+1..9"
-previous_agent = ["prefix+[", "ctrl+cmd+k"]
-next_agent = ["prefix+]", "ctrl+cmd+j"]
+previous_agent = ["ctrl+cmd+k", "ctrl+super+j"]
+next_agent = ["prefix+]", "ctrl+cmd+j", "ctrl+super+k"]
 cycle_pane_next = ["prefix+tab", "alt+up"]
 cycle_pane_previous = ["prefix+shift+tab", "alt+down"]
 
@@ -77,7 +79,7 @@ cycle_pane_previous = ["prefix+shift+tab", "alt+down"]
 agent_panel_sort = "priority"
 prompt_new_tab_name = false
 status_indicators = "dots"
-copy_on_select = false
+copy_on_select = true
 tab_bar_position = "bottom"
 tab_bar_right = [
   { type = "zoom" },
@@ -119,6 +121,7 @@ enabled = true
 
 [experimental]
 pane_history = false
+switch_ascii_input_source_in_prefix = true
 
 [advanced]
 # Maximum scrollback buffer size in bytes retained per pane terminal.
