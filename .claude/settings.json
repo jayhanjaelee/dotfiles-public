@@ -29,7 +29,8 @@
     "claude-hud@claude-hud": true,
     "lua-lsp@claude-plugins-official": true,
     "ralph-loop@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true
+    "typescript-lsp@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true
   },
   "language": "korean",
   "effortLevel": "high",
@@ -42,5 +43,6 @@
   "skipDangerousModePermissionPrompt": true,
   "theme": "dark",
   "preferredNotifChannel": "ghostty",
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true,
+  "HERDR_ENV": 1
 }
