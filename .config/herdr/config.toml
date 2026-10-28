@@ -24,7 +24,7 @@ prefix = "ctrl+space"
 # Prefix-mode actions
 detach = "prefix+d"
 settings = "prefix+,"
-rename_workspace = ["prefix+ctrl+w", "cmd+r"]
+rename_workspace = "prefix+ctrl+r"
 focus_pane_left = "prefix+h"
 focus_pane_down = "prefix+j"
 focus_pane_up = "prefix+k"
@@ -41,22 +41,17 @@ resize_pane_right = "ctrl+shift+alt+l"  # optional, e.g. "ctrl+shift+alt+right"
 
 # Navigate-mode movement. These local shortcuts win while navigate mode is open.
 # They are independent from focus_pane_*. Do not include prefix+, esc, enter, tab, or 1..9 here.
-navigate_workspace_up = ["k", "p"]
-navigate_workspace_down = ["j", "n"]
+navigate_workspace_up = "k"
+navigate_workspace_down = "j"
 
-new_tab = ["prefix+c", "cmd+t"]
-close_tab = ["prefix+shift+x", "cmd+w"]
-goto = ["prefix+g", "cmd+k"]
-previous_tab = ["prefix+p", "cmd+shift+["]
-next_tab = ["prefix+n", "cmd+shift+]"]
-previous_workspace = "ctrl+cmd+h" 
-next_workspace = "ctrl+cmd+l" 
+new_tab = "prefix+c"
+close_tab = "prefix+shift+x"
+goto = "prefix+g"
+previous_tab = "prefix+p"
+next_tab = "prefix+n"
 switch_tab = "prefix+1..9"
-switch_workspace = "alt+cmd+1..9"
-focus_agent = ""
-previous_agent = "ctrl+cmd+k"
-copy_mode = "prefix+["
-next_agent = ["prefix+]", "ctrl+cmd+j"]
+focus_agent = "ctrl+1..9"
+next_agent = "prefix+]"
 cycle_pane_next = ["prefix+tab", "alt+up"]
 cycle_pane_previous = ["prefix+shift+tab", "alt+down"]
 
@@ -78,13 +73,14 @@ cycle_pane_previous = ["prefix+shift+tab", "alt+down"]
 agent_panel_sort = "priority"
 prompt_new_tab_name = false
 status_indicators = "dots"
-copy_on_select = true
-# 분할된 pane 사이의 gap 제거 (구분선 테두리 공유)
+copy_on_select = false
 pane_gaps = false
-# pane 바깥 테두리 제거
-pane_outer_borders = false
-# 탭이 하나뿐이면 탭 바 숨김
-hide_tab_bar_when_single_tab = true
+tab_bar_position = "bottom"
+tab_bar_right_separator = " · "
+tab_bar_right = [
+  { type = "hostname" },
+  { type = "datetime", format = "%Y-%m-%d %H:%M" },
+]
 [ui.sidebar.agents]
 row_gap = 1
 rows = [
@@ -118,7 +114,6 @@ enabled = true
 [remote]
 
 [experimental]
-kitty_graphics = true
 pane_history = false
 
 [advanced]
@@ -150,3 +145,4 @@ key = "prefix+shift+f"
 type = "plugin_action"
 command = "herdr-file-viewer.open-file-viewer-tab"
 description = "open file viewer in tab"
+
